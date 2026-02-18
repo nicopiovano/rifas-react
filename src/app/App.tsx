@@ -4,14 +4,30 @@ import { NumberGrid } from "./components/Raffle/NumberGrid";
 import { CartBar } from "./components/Raffle/CartBar";
 import { CheckoutModal, CheckoutFormData } from "./components/Raffle/CheckoutModal";
 import { Toaster, toast } from "sonner";
-import { Ticket } from "lucide-react";
+import { Moon, Sun, Ticket } from "lucide-react";
 import { formatCurrency } from "./utils/formatCurrency";
 
 const PRICE_PER_TICKET = 1000;
 
+function getIsDark() {
+  return document.documentElement.classList.contains("dark");
+}
+
 export default function App() {
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDark, setIsDark] = useState<boolean>(() => getIsDark());
+
+  const toggleTheme = () => {
+    const next = !getIsDark();
+    const root = document.documentElement;
+    root.classList.toggle("dark", next);
+    root.style.colorScheme = next ? "dark" : "light";
+    try {
+      localStorage.setItem("theme", next ? "dark" : "light");
+    } catch {}
+    setIsDark(next);
+  };
 
   const toggleNumber = (num: number) => {
     setSelectedNumbers((prev) => {
@@ -45,24 +61,37 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 font-sans text-stone-800 pb-24">
-      <Toaster position="top-center" richColors theme="light" />
+    <div className="min-h-screen bg-background text-foreground font-sans pb-24">
+      <Toaster position="top-center" richColors theme={isDark ? "dark" : "light"} />
 
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-stone-200 sticky top-0 z-40">
+      <header className="bg-background/80 backdrop-blur-md border-b border-border sticky top-0 z-40">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-emerald-100 p-2 rounded-xl">
+            <div className="bg-emerald-500/15 p-2 rounded-xl">
               <Ticket className="w-6 h-6 text-emerald-600" />
             </div>
             <div>
-              <h1 className="text-xl font-bold leading-tight text-stone-800">Gran Rifa 2026</h1>
-              <p className="text-stone-500 text-xs font-medium">¡Gana premios increíbles!</p>
+              <h1 className="text-xl font-bold leading-tight">Gran Rifa 2026</h1>
+              <p className="text-muted-foreground text-xs font-medium">¡Gana premios increíbles!</p>
             </div>
           </div>
-          <div className="text-right hidden sm:block">
-            <p className="text-sm font-medium text-stone-600">Sorteo: 31 de Diciembre</p>
-            <p className="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full inline-block">Valor: {formatCurrency(PRICE_PER_TICKET)}</p>
+          <div className="flex items-center gap-3">
+            <div className="text-right hidden sm:block">
+              <p className="text-sm font-medium text-muted-foreground">Sorteo: 31 de Diciembre</p>
+              <p className="text-xs text-emerald-600 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full inline-block">
+                Valor: {formatCurrency(PRICE_PER_TICKET)}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border bg-card/60 hover:bg-card transition-colors"
+              aria-label={isDark ? "Cambiar a tema claro" : "Cambiar a tema oscuro"}
+              title={isDark ? "Tema claro" : "Tema oscuro"}
+            >
+              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
           </div>
         </div>
       </header>
@@ -75,12 +104,12 @@ export default function App() {
         <section className="container mx-auto px-4 py-8">
           <div className="flex flex-col lg:flex-row gap-8">
             <div className="lg:w-1/3">
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-100 sticky top-24">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-stone-800">
-                  <span className="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+              <div className="bg-card p-6 rounded-2xl shadow-sm border border-border sticky top-24">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <span className="bg-emerald-500/15 text-emerald-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
                   Instrucciones
                 </h3>
-                <ul className="space-y-4 text-stone-600 text-sm">
+                <ul className="space-y-4 text-muted-foreground text-sm">
                   <li className="flex gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
                     <p>Explora los premios disponibles en la parte superior.</p>
@@ -99,7 +128,7 @@ export default function App() {
                   </li>
                 </ul>
 
-                <div className="mt-8 p-4 bg-orange-50 rounded-xl border border-orange-100 text-orange-800 text-sm">
+                <div className="mt-8 p-4 bg-orange-500/10 rounded-xl border border-orange-500/20 text-orange-700 dark:text-orange-300 text-sm">
                   <strong>Nota:</strong> Los números se reservan por 15 minutos al iniciar el proceso de compra.
                 </div>
               </div>

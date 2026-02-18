@@ -55,9 +55,9 @@ const prizes = [
 
 export const PrizeSection = () => {
   return (
-    <section className="py-12 bg-stone-50">
+    <section className="py-12 bg-background">
       <div className="container mx-auto px-4 md:px-14">
-        <h2 className="text-3xl font-bold text-center mb-8 text-stone-800">
+        <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
           Premios Increíbles
         </h2>
         <Carousel
@@ -74,7 +74,7 @@ export const PrizeSection = () => {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden flex flex-col h-full hover:shadow-md transition-shadow duration-300"
+                  className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden flex flex-col h-full hover:shadow-md transition-shadow duration-300"
                 >
                   <div className="relative h-48 overflow-hidden group">
                     <img
@@ -87,17 +87,17 @@ export const PrizeSection = () => {
                     </div>
                   </div>
                   <div className="p-6 flex-1 flex flex-col">
-                    <h3 className="text-xl font-bold text-stone-800 mb-2">
+                    <h3 className="text-xl font-bold text-foreground mb-2">
                       {prize.title}
                     </h3>
-                    <p className="text-stone-500 flex-1 leading-relaxed text-sm">{prize.description}</p>
+                    <p className="text-muted-foreground flex-1 leading-relaxed text-sm">{prize.description}</p>
                   </div>
                 </motion.div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-0 md:-left-12 border-stone-200 bg-white hover:bg-stone-50" />
-          <CarouselNext className="right-0 md:-right-12 border-stone-200 bg-white hover:bg-stone-50" />
+          <CarouselPrevious className="left-0 md:-left-12 border-border bg-card hover:bg-accent" />
+          <CarouselNext className="right-0 md:-right-12 border-border bg-card hover:bg-accent" />
         </Carousel>
       </div>
     </section>

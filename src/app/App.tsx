@@ -128,6 +128,24 @@ export default function App() {
         total={selectedNumbers.length * PRICE_PER_TICKET}
         onConfirm={handleConfirmPurchase}
       />
+
+      {/* Firma / stack */}
+      <div className="pointer-events-none fixed inset-x-0 bottom-3 z-50 flex justify-center px-4">
+        <div className="pointer-events-auto max-w-xl rounded-2xl border border-stone-200 bg-white/80 px-3 py-2 text-xs text-stone-800 shadow-sm backdrop-blur">
+          <span className="font-medium">Desarrollado con</span>
+          <span className="mx-2 text-stone-600">
+            React · Tailwind · Motion · AI
+          </span>
+          <a
+            href="https://nico-piovano-porfolio.vercel.app/es"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:opacity-80"
+          >
+            <span className="font-medium">by Nico Piovano</span>
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

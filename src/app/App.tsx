@@ -77,7 +77,7 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-right hidden sm:block">
+          <div className="text-right hidden sm:block">
               <p className="text-sm font-medium text-muted-foreground">Sorteo: 31 de Diciembre</p>
               <p className="text-xs text-emerald-600 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full inline-block">
                 Valor: {formatCurrency(PRICE_PER_TICKET)}
@@ -166,7 +166,7 @@ export default function App() {
             React · Tailwind · Motion · AI
           </span>
           <a
-            href="https://nico-piovano-porfolio.vercel.app/es"
+            href="https://nico-piovano-porfolio.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
             className="underline underline-offset-2 hover:opacity-80"
